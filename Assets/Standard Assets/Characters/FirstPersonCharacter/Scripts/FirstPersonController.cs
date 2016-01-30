@@ -162,53 +162,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
-			RaycastHit hit;
-			String floorTag;
-
             if (!m_CharacterController.isGrounded)
             {
                 return;
             }
-
-			if(Physics.Raycast(transform.position, Vector3.down, out hit))
-			{
-				floorTag = hit.collider.gameObject.tag;
-				if(floorTag == "Rocks")
-				{
-					// pick & play a random footstep sound from the array,
-					// excluding sound at index 0
-					int n = Random.Range(3, 6);
-					m_AudioSource.clip = m_FootstepSounds[n];
-					m_AudioSource.PlayOneShot(m_AudioSource.clip);
-					// move picked sound to index 0 so it's not picked next time
-					m_FootstepSounds[n] = m_FootstepSounds[2];
-					m_FootstepSounds[2] = m_AudioSource.clip;
-				}
-
-				else if(floorTag == "Water")
-				{
-					// pick & play a random footstep sound from the array,
-					// excluding sound at index 0
-					int n = Random.Range(7, 10);
-					m_AudioSource.clip = m_FootstepSounds[n];
-					m_AudioSource.PlayOneShot(m_AudioSource.clip);
-					// move picked sound to index 0 so it's not picked next time
-					m_FootstepSounds[n] = m_FootstepSounds[6];
-					m_FootstepSounds[6] = m_AudioSource.clip;
-				}
-
-				else
-				{
-					// pick & play a random footstep sound from the array,
-					// excluding sound at index 0
-					int n = Random.Range(1, 2);
-					m_AudioSource.clip = m_FootstepSounds[n];
-					m_AudioSource.PlayOneShot(m_AudioSource.clip);
-					// move picked sound to index 0 so it's not picked next time
-					m_FootstepSounds[n] = m_FootstepSounds[0];
-					m_FootstepSounds[0] = m_AudioSource.clip;
-				}
-			}
+            // pick & play a random footstep sound from the array,
+            // excluding sound at index 0
+            int n = Random.Range(1, m_FootstepSounds.Length);
+            m_AudioSource.clip = m_FootstepSounds[n];
+            m_AudioSource.PlayOneShot(m_AudioSource.clip);
+            // move picked sound to index 0 so it's not picked next time
+            m_FootstepSounds[n] = m_FootstepSounds[0];
+            m_FootstepSounds[0] = m_AudioSource.clip;
         }
 
 
