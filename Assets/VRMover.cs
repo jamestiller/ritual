@@ -170,8 +170,9 @@ public class VRMover : MonoBehaviour {
 		}
 
 		// Figure out the joystick controls!
-		float horizontal = XboxCtrlrInput.XCI.GetAxis(XboxCtrlrInput.XboxAxis.LeftStickX);
-		float vertical = XboxCtrlrInput.XCI.GetAxis(XboxCtrlrInput.XboxAxis.LeftStickY);
+		float horizontal = Input.GetAxis("Horizontal");
+			//XboxCtrlrInput.XCI.GetAxis(XboxCtrlrInput.XboxAxis.LeftStickX);
+		float vertical = Input.GetAxis("Vertical");//XboxCtrlrInput.XCI.GetAxis(XboxCtrlrInput.XboxAxis.LeftStickY);
 		//Debug.Log("vert:" + horizontal + ":" + vertical);
 
 		if (vertical > .2f || vertical < -.2)
