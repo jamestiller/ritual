@@ -14,7 +14,7 @@ public class VRMover : MonoBehaviour {
 		//startDrag = character.drag;
 	}
 
-	float walkForce = 1;
+	float walkForce = 2;
 	float rotationMax = .5f;
 
 	float targetBlindness = 0;
@@ -34,7 +34,6 @@ public class VRMover : MonoBehaviour {
 		blur.Downsample = (int)Mathf.Max(1,targetDownsamples*normal);
 		targetBlindness = 50 * normal;
 		blur.Blur = targetBlindness;
-		//StartCoroutine("SuddenBlindness");
 	}
 
 	private void SetBlur(bool turnOn)
@@ -49,22 +48,43 @@ public class VRMover : MonoBehaviour {
 		}
 	}
 
-	IEnumerator SuddenBlindness()
+	void SetBlindnessLevel(int level)
 	{
-		float iterations = 0;
-		float totalIterations = 10;
-
-		while(iterations < totalIterations)
+		switch(level)
 		{
-			yield return null;
-			blur.Blur = targetBlindness*iterations/totalIterations;
-			blur.Downsample = (int)(targetDownsamples*iterations/totalIterations);
-			if (blur.Downsample < 1)
-			{
-				blur.Downsample = 1;
-			}
-
-			blur.Iterations = (int)(targetIterations*iterations/totalIterations);
+		case 0:
+			SetSuddenBlindness(0);
+			break;
+		case 1:
+			SetSuddenBlindness(.01f);
+			break;
+		case 2:
+			SetSuddenBlindness(.03f);
+			break;
+		case 3:
+			SetSuddenBlindness(.055f);
+			break;
+		case 4:
+			SetSuddenBlindness(.08f);
+			break;
+		case 5:
+			SetSuddenBlindness(.1f);
+			break;
+		case 6:
+			SetSuddenBlindness(.15f);
+			break;
+		case 7:
+			SetSuddenBlindness(.27f);
+			break;
+		case 8:
+			SetSuddenBlindness(.5f);
+			break;
+		case 9:
+			SetSuddenBlindness(.8f);
+			break;
+		case 10:
+			SetSuddenBlindness(1.0f);
+			break;
 		}
 	}
 
@@ -172,7 +192,8 @@ public class VRMover : MonoBehaviour {
 		// Figure out the joystick controls!
 		float horizontal = Input.GetAxis("Horizontal");
 			//XboxCtrlrInput.XCI.GetAxis(XboxCtrlrInput.XboxAxis.LeftStickX);
-		float vertical = Input.GetAxis("Vertical");//XboxCtrlrInput.XCI.GetAxis(XboxCtrlrInput.XboxAxis.LeftStickY);
+		float vertical = Input.GetAxis("Vertical");
+		//XboxCtrlrInput.XCI.GetAxis(XboxCtrlrInput.XboxAxis.LeftStickY);
 		//Debug.Log("vert:" + horizontal + ":" + vertical);
 
 		if (vertical > .2f || vertical < -.2)

@@ -3,8 +3,10 @@ using System.Collections;
 
 public class Candle : MonoBehaviour {
 
+	public bool hasBeenTouched = false;
+
 	public GameObject[] flames;
-	public float flameTimer = 15;
+	private float flameTimer = 1000;
 	public float lastTimeTriggered = 0;
 
 	public Collider terrain;
@@ -31,13 +33,29 @@ public class Candle : MonoBehaviour {
 		{
 			for(int i = 0; i < flames.Length; i++)
 			{
-				flames[i].SetActive(false);
+				ResetCandle(i);
 			}
 		}
 	}
 
+	public void ResetAllFlames()
+	{
+		for(int i = 0; i < flames.Length; i++)
+		{
+			ResetCandle(i);
+		}
+	}
+
+	public void ResetCandle(int index)
+	{
+		flames[index].SetActive(false);
+		hasBeenTouched = false;
+	}
+
 	void OnTriggerEnter()
 	{
+		hasBeenTouched = true;
+
 		Debug.Log("enter");
 		// activate the flames!
 		for(int i = 0; i < flames.Length; i++)
