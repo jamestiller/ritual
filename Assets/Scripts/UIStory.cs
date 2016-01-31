@@ -4,7 +4,8 @@ using System.Collections;
 
 public class UIStory : MonoBehaviour 
 {
-	private Text storyText;
+	public Text bottomText;
+	public Text storyText;
 
 	// Use this for initialization
 	void Start () 
@@ -14,7 +15,7 @@ public class UIStory : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{	
 		
 
 	}
